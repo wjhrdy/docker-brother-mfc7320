@@ -35,7 +35,8 @@ RUN apt-get -y install \
     curl \
     nodejs \
     npm \
-    vim
+    vim \
+    net-tools
 RUN apt-get clean
 
 # Fix tzdata
