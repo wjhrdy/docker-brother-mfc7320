@@ -1,4 +1,4 @@
-# Dockerized Tor Relay Node on Raspberry Pi
+# Dockerized  ScanServer for Brother MFC 7320
 #
 # VERSION               0.0.1
 
@@ -30,14 +30,15 @@ RUN apt-get -y install \
     nodejs \
     npm \
     vim \
-    net-tools
+    net-tools \
+    tzdata
 RUN apt-get clean
 
 # Fix tzdata
-RUN dpkg-reconfigure -f noninteractive tzdata
-RUN echo "tzdata tzdata/Areas select Europe\ntzdata tzdata/Zones/Europe select Berlin" > /tmp/tzdate-preseed.txt
+#RUN dpkg-reconfigure -f noninteractive tzdata
+RUN echo "tzdata tzdata/Areas select Europe\ntzdata tzdata/Zones/Europe select Paris" > /tmp/tzdate-preseed.txt
 RUN debconf-set-selections /tmp/tzdate-preseed.txt
-#RUN echo "Europe/Paris" > /etc/timezone    
+RUN echo "Europe/Paris" > /etc/timezone    
 
 RUN mkdir -p /tmp/
 
@@ -54,6 +55,16 @@ WORKDIR /tmp/scanservjs
 RUN wget -O /tmp/scanservjs/scanservjs.tar.gz $(curl -s https://api.github.com/repos/sbs20/scanservjs/releases/latest | grep browser_download_url | cut -d '"' -f 4)
 RUN tar -xf scanservjs.tar.gz
 RUN ./scanservjs/install.sh
+ADD device.conf /var/www/scanservjs/device.conf
+RUN chown scanservjs:users /var/www/scanservjs/device.conf
+RUN chmod 644 /var/www/scanservjs/device.conf
+
+# Setup brscan-skey
+ADD scan-pdf-ocr.sh /opt/brother/scanner/brscan-skey/script/scan-pdf-ocr.sh
+RUN chmod  +x /opt/brother/scanner/brscan-skey/scan-pdf-ocr.sh
+RUN rm /opt/brother/scanner/brscan-skey/brscan-skey-0.2.4-0.cfg
+ADD brscan-skey.cfg /opt/brother/scanner/brscan-skey/brscan-skey-0.2.4-0.cfg
+
 
 # Add launcher
 ADD start.sh /start.sh
