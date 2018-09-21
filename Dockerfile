@@ -37,10 +37,7 @@ RUN apt-get -y install \
 RUN apt-get clean
 
 # Fix tzdata
-#RUN dpkg-reconfigure -f noninteractive tzdata
-RUN echo "tzdata tzdata/Areas select Europe\ntzdata tzdata/Zones/Europe select Paris" > /tmp/tzdate-preseed.txt
-RUN debconf-set-selections /tmp/tzdate-preseed.txt
-RUN echo "Europe/Paris" > /etc/timezone    
+RUN ln -fs /usr/share/zoneinfo/Europe/Paris /etc/localtime && dpkg-reconfigure -f noninteractive tzdata
 
 RUN mkdir -p /tmp/
 
