@@ -44,7 +44,7 @@ cp ${tmpFolder}/${name}.jpg $destFolder
 rm -f ${LOCKFILE}
 
 ## run OCR and save as pdf
-tesseract -l $ocrLanguage -psm 3 ${tmpFolder}/${name}.jpg ${tmpFolder}/${name} pdf
+tesseract -l $ocrLanguage ${tmpFolder}/${name}.jpg ${tmpFolder}/${name} pdf
 
 ## Send the pdf with ocr to it's destination
 chmod ugo+rw ${tmpFolder}/${name}.pdf
