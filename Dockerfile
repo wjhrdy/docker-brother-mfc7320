@@ -72,8 +72,10 @@ ADD brscan-skey.cfg /opt/brother/scanner/brscan-skey/brscan-skey-0.2.4-0.cfg
 
 # Add launcher
 ADD start.sh /start.sh
+RUN chmod +x /start.sh
 
 # Start scan service(s)
 #CMD /start.sh
 #ENTRYPOINT ["tail", "-f", "/dev/null"]
 ENTRYPOINT ["/start.sh"]
+EXPOSE 8080
