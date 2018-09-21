@@ -7,7 +7,7 @@
 name=`date +%F-%Hh%Mm%S`
 tmpFolder=/tmp/scan2pdf-ocr
 tmpFile=$tmpFolder/scan2pdf-tmp
-destFolder="/volume/scans/"
+destFolder="/var/www/scanservjs/data/output/"
 #@TODO : scann with full resolution to achieve better OCR then convert jpg and pdf to a lower resolution as passed in parameter.
 # proposed resolutions are 4960x6874 2480x3437 1648x2291 all that in 96ppi
 resolution=$1
