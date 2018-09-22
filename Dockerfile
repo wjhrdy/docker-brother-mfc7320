@@ -33,7 +33,9 @@ RUN apt-get -y install \
     npm \
     vim \
     net-tools \
-    tzdata
+    tzdata \
+    cups \
+    cups-client
 RUN apt-get clean
 
 # Fix tzdata
@@ -66,6 +68,10 @@ RUN chmod  +x /opt/brother/scanner/brscan-skey/script/scan-pdf-ocr.sh
 RUN rm /opt/brother/scanner/brscan-skey/brscan-skey-0.2.4-0.cfg
 ADD brscan-skey.cfg /opt/brother/scanner/brscan-skey/brscan-skey-0.2.4-0.cfg
 
+# Add printer
+ADD cups-printers.conf /etc/cups/printers.conf
+RUN apt-get install google-cloud-print-connector
+RUN apt-get clean
 
 # Add launcher
 ADD start.sh /start.sh
