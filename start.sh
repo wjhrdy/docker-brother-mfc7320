@@ -7,8 +7,8 @@ service dbus start
 /opt/brother/scanner/brscan-skey/brscan-skey
 
 # Run google-cloud-print
-if [ -n $GCPCONFIG ]; then
-        echo $GCPCONFIG > /root/gcp-cups-connector.config.json
+if [ -n "$GCPCONFIG" ]; then
+        echo "$GCPCONFIG" > /root/gcp-cups-connector.config.json
         service avahi-daemon start
         service cups start
         cd /root
