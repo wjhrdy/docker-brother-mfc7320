@@ -72,7 +72,6 @@ ADD brscan-skey.cfg /opt/brother/scanner/brscan-skey/brscan-skey-0.2.4-0.cfg
 RUN apt-get install google-cloud-print-connector
 RUN apt-get clean
 RUN service cups start && lpadmin -p "MFC7320-docker" -v "usb://Brother/MFC-7320?serial=000E8N228135" -P "/usr/share/cups/model/MFC7320.ppd" -o printer-is-shared=true && cupsenable "MFC7320-docker" -E && cupsaccept "MFC7320-docker" && service cups stop
-RUN chmod +x /cloud-print-connector-service.sh
 
 # Add launcher
 ADD start.sh /start.sh
